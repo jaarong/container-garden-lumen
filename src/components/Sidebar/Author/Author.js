@@ -1,6 +1,8 @@
 // @flow strict
 import React from 'react';
 import { withPrefix, Link } from 'gatsby';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSeedling } from '@fortawesome/free-solid-svg-icons'
 import styles from './Author.module.scss';
 
 type Props = {
@@ -15,25 +17,19 @@ type Props = {
 const Author = ({ author, isIndex }: Props) => (
   <div className={styles['author']}>
     <Link to="/">
-      <img
-        src={withPrefix(author.photo)}
-        className={styles['author__photo']}
-        width="75"
-        height="75"
-        alt={author.name}
-      />
+    <div class="logo text-5xl pr-3"><FontAwesomeIcon icon={faSeedling} /></div>
     </Link>
 
     { isIndex === true ? (
       <h1 className={styles['author__title']}>
-        <Link className={styles['author__title-link']} to="/">{author.name}</Link>
+        <Link className="pt-2 border-t-1 border-gray-100" to="/">{author.name}</Link>
       </h1>
     ) : (
-      <h2 className={styles['author__title']}>
+      <h2 className="pt-2 border-t-1 border-gray-100">
         <Link className={styles['author__title-link']} to="/">{author.name}</Link>
       </h2>
     )}
-    <p className={styles['author__subtitle']}>{author.bio}</p>
+    <p className="pt-2 border-t-1 border-gray-100 text-gray-100 text-sm">{author.bio}</p>
   </div>
 );
 

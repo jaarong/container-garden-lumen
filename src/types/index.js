@@ -23,22 +23,16 @@ export type PageContext = {
 };
 
 export type Node = {
-  fields: {
-    slug: string,
-    categorySlug?: string,
-    tagSlugs?: string[]
-  },
+  slug: string,
   frontmatter: {
     date: string,
     description?: string,
     category?: string,
     tags?: string[],
     title: string,
-    socialImage?: {
-      publicURL: string
-    }
+    featuredImage: array
   },
-  html: string,
+  body: string,
   id: string
 };
 
@@ -48,8 +42,8 @@ export type Edge = {
 
 export type Edges = Array<Edge>;
 
-export type AllMarkdownRemark = {
-  allMarkdownRemark: {
+export type AllMdx = {
+  allMdx: {
     edges: Edges,
   },
   group: {
@@ -58,4 +52,4 @@ export type AllMarkdownRemark = {
   }[]
 };
 
-export type MarkdownRemark = Node;
+export type Mdx = Node;

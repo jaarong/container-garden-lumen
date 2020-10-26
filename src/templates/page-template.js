@@ -2,30 +2,51 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../components/Layout';
-import Sidebar from '../components/Sidebar';
 import Page from '../components/Page';
 import { useSiteMetadata } from '../hooks';
-import type { MarkdownRemark } from '../types';
+import type { Mdx } from '../types';
+import { MDXRenderer } from "gatsby-plugin-mdx";
+import { GatsbySeo } from 'gatsby-plugin-next-seo';
 
 type Props = {
   data: {
-    markdownRemark: MarkdownRemark
+    mdx: Mdx
   }
 };
 
 const PageTemplate = ({ data }: Props) => {
-  const { title: siteTitle, subtitle: siteSubtitle } = useSiteMetadata();
-  const { html: pageBody } = data.markdownRemark;
-  const { frontmatter } = data.markdownRemark;
-  const { title: pageTitle, description: pageDescription, socialImage } = frontmatter;
+  const { title: siteTitle, subtitle: siteSubtitle, logo: logo, url: url } = useSiteMetadata();
+  const { body } = data.mdx;
+  const { frontmatter } = data.mdx;
+  const { title: pageTitle, description: pageDescription } = frontmatter;
   const metaDescription = pageDescription !== null ? pageDescription : siteSubtitle;
-  const socialImageUrl = typeof socialImage !== 'undefined' ? socialImage['publicURL'] : undefined;
-
+  const containerCss = "container mx-auto p-6 max-w-screen-md";
+  const featureImage = logo;
+  const canonicalUrl = url + "/" + data.mdx.slug;
+  const title = `${pageTitle} - ${siteTitle}`;
   return (
-    <Layout title={`${pageTitle} - ${siteTitle}`} description={metaDescription} socialImage={socialImageUrl} >
-      <Sidebar />
-      <Page title={pageTitle}>
-        <div dangerouslySetInnerHTML={{ __html: pageBody }} />
+    <Layout>
+      <GatsbySeo
+        title={title}
+        description={metaDescription}
+        canonical={canonicalUrl}
+        openGraph={{
+          url: canonicalUrl,
+          title: title,
+          description: metaDescription,
+          images: [
+            {
+              url: featureImage.src,
+              width: 800,
+              height: 600,
+              alt: featureImage.alt,
+            }
+          ],
+          site_name: siteTitle,
+        }}
+      />
+      <Page header={pageTitle} containerCss={containerCss}>
+        <MDXRenderer>{body}</MDXRenderer>
       </Page>
     </Layout>
   );
@@ -33,16 +54,15 @@ const PageTemplate = ({ data }: Props) => {
 
 export const query = graphql`
   query PageBySlug($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+    mdx( slug: { eq: $slug } ) {
       id
-      html
+      body
+      slug
       frontmatter {
         title
         date
         description
-        socialImage {
-          publicURL
-        }
+
       }
     }
   }

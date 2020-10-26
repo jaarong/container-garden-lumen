@@ -10,7 +10,7 @@ import type { RenderCallback } from '../types';
 describe('PostTemplate', () => {
   const props = {
     data: {
-      ...markdownRemark
+      ...mdx
     }
   };
 

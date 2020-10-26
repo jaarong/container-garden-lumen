@@ -3,16 +3,16 @@
 const _ = require('lodash');
 const { createFilePath } = require('gatsby-source-filesystem');
 
+
 const onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
-
-  if (node.internal.type === 'MarkdownRemark') {
-    if (typeof node.frontmatter.slug !== 'undefined') {
+  if (node.internal.type === 'Mdx') {
+    if (typeof node.slug !== 'undefined') {
       const dirname = getNode(node.parent).relativeDirectory;
       createNodeField({
         node,
         name: 'slug',
-        value: `/${dirname}/${node.frontmatter.slug}`
+        value: `/${dirname}/${node.slug}`
       });
     } else {
       const value = createFilePath({ node, getNode });
