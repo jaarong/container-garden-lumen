@@ -10,7 +10,7 @@ slug: 2020/starting-a-fall-container-garden
 draft: false
 date: 2020-09-02T15:20:24.881Z
 description: I've begun to start some seeds for my fall container garden.
-category: my garden
+category: my-garden
 tags:
   - swiss chard
   - arugula
