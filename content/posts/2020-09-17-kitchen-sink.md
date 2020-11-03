@@ -10,7 +10,7 @@ slug: 2020/kitchen-sink
 draft: false
 date: 2020-09-01T15:25:47.694Z
 description: A look at many markdown elements for testing purposes.
-category: general
+category: testing
 tags:
   - testing
 ---

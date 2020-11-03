@@ -10,7 +10,7 @@ slug: fall-garden-update
 draft: false
 date: 2020-10-02T14:54:15.729Z
 description: The fall garden is not doing as good as I'd hoped.
-category: general
+category: my garden
 tags:
   - mizuna
   - swiss chard
